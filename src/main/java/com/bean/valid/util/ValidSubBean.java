@@ -130,22 +130,8 @@ public class ValidSubBean<ST, PT> extends ValidBean<ST> {
         return set;
     }
 
-//    /**
-//     * 获取父链的错误信息列表
-//     *
-//     * @return
-//     */
-//    protected List<String> getLazyErrorMsgListForParentChain() {
-//        List<String> list = new ArrayList<>();
-//
-//        list.addAll(parentValidBean.getLazyErrorMsgList());
-//        if (parentValidBean instanceof ValidSubBean) {
-//            list.addAll(((ValidSubBean) parentValidBean).getLazyErrorMsgListForParentChain());
-//        }
-//
-//        return list;
-//    }
 
+ 
     @Override
     protected void throwExceptionIfExitsErrorMsg() {
         StringJoiner joiner = new StringJoiner(",");

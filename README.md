@@ -7,10 +7,11 @@
 
 也可以复制下面的代码去跑一跑：
 
- /**
+    /**
      * 1、简单使用例子
      */
-    public static void simpleTest() {
+    
+     public static void simpleTest() {
         Data data = new Data();
         data.setBusinessId(12);  //可以试着注释掉这一行再来执行看看
         data.setBusinessList(Arrays.asList(123, 222));//可以试着注释掉这一行再来执行看看

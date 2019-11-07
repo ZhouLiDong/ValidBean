@@ -17,10 +17,10 @@
         data.setBusinessList(Arrays.asList(123, 222));//可以试着注释掉这一行再来执行看看
 
         ValidBean.of(data)
-                .notEmpty(Data::getBusinessId, "商户id不能为空") //data.getBusinessId的返回值必须非空，如果为空，则不能通过校验，会抛异常，异常的msg为第二个参数
-                .notEmpty(Data::getBusinessId) //不传第二个参数，使用默认的msg="属性不能为空"
-                .notEmpty(Data::getBusinessList, "商户列表不能为空")  //支持String、Collection、Map的空校验
-                .empty(Data::getActivityId, "活动id必须为空") //data.getBusinessId的返回值必须为空，如果不为空则报错
+                .notEmpty(Data::getBusinessId, "商户id不能为空") //指定属性不能为空，第一个参数指定要校验的属性，第二个参数是校验未通过时的错误消息
+                .notEmpty(Data::getBusinessId) //指定属性不能为空，校验指定属性，使用默认错误消息
+                .notEmpty(Data::getBusinessList, "商户列表不能为空")  //指定属性不能为空，校验指定属性，支持String、Collection、Map的空校验
+                .empty(Data::getActivityId, "活动id必须为空") //指定属性必须为空
                 .complete(); //未开启懒惰模式lazy()时，可以不需要complete。为了习惯，不论有没有开启lazy，最好在最后都调一下这个方法
     }
 

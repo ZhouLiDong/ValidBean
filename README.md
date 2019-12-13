@@ -86,7 +86,7 @@
                 //此时对getParams1返回值的校验已完成，然后又想回到对data校验怎么办？使用parent方法即可
                 //调用parent方法回到上层的校验时，由于ValidSubBean和ValidBean之间泛型转换会导致类型信息丢失，所以需要重新传入类型泛型信息
                 //其中Data<GenericData1, GenericData2>就是data的类型
-                .parent(new TypeReference<Data2<GenericData1, GenericData2>>())
+                .<Data2<GenericData1, GenericData2>>parent()
                 //此时又可以对data进行校验了，一样
                 .notEmpty(Data2::getBusinessId, "商户id不能为空")
                 //再次使用map，此时校验的是getParams2的返回值
@@ -150,7 +150,7 @@
                 //此时对getParams1返回值的校验已完成，然后又想回到对data校验怎么办？使用parent方法即可
                 //调用parent方法回到上层的校验时，由于ValidSubBean和ValidBean之间泛型转换会导致类型信息丢失，所以需要重新传入类型泛型信息
                 //其中Data<GenericData1, GenericData2>就是data的类型
-                .parent(new TypeReference<Data2<GenericData1, GenericData2>>())
+                .<Data2<GenericData1, GenericData2>>parent()
                 //此时又可以对data进行校验了，一样
                 .notEmpty(Data2::getBusinessId, "商户id不能为空")
                 //再次使用map，此时校验的是getParams2的返回值

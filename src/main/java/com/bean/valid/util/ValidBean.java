@@ -195,11 +195,10 @@ public class ValidBean<T> {
     /**
      * 获取父ValidBean,该方法只有ValidSubBean才有用，只有ValidSubBean才有父ValidBean
      *
-     * @param typeReference
      * @param <PT> 父类型的泛型类型
      * @return
      */
-    public <PT> ValidBean<PT> parent(TypeReference<PT> typeReference) {
+    public <PT> ValidBean<PT> parent() {
         throw new ValidatedException("当前不是ValidSubBean，没有parent");
     }
 

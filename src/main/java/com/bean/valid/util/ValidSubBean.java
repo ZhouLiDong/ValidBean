@@ -30,7 +30,7 @@ public class ValidSubBean<ST, PT> extends ValidBean<ST> {
      * @param <T>
      * @return
      */
-    public <T> ValidBean<T> parent(TypeReference<T> typeReference) {
+    public <T> ValidBean<T> parent() {
         return new ValidSubBean<T, ST>(this, (T) parentValidBean.getBean(), isLazy());
     }
 

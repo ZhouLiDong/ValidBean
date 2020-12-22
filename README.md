@@ -1,9 +1,9 @@
-# ValidBean
+# Bean
 利用java8特性开发的针对pojo参数的校验工具
 
 支持pojo的级联校验、自定义校验规则、懒执行。
 
-在test.ValidBeanTest测试类中对相关功能都有对应的例子以及注释。
+在test.BeanTest测试类中对相关功能都有对应的例子以及注释。
 
 也可以复制下面的代码去跑一跑：
 
@@ -16,7 +16,7 @@
         data.setBusinessId(12);  //可以试着注释掉这一行再来执行看看
         data.setBusinessList(Arrays.asList(123, 222));//可以试着注释掉这一行再来执行看看
 
-        ValidBean.of(data)
+        Bean.of(data)
                 .notEmpty(Data::getBusinessId, "商户id不能为空") //指定属性不能为空，第一个参数指定要校验的属性，第二个参数是校验未通过时的错误消息
                 .notEmpty(Data::getBusinessId) //指定属性不能为空，校验指定属性，使用默认错误消息
                 .notEmpty(Data::getBusinessList, "商户列表不能为空")  //指定属性不能为空，校验指定属性，支持String、Collection、Map的空校验
@@ -39,7 +39,7 @@
         data.setParams1(paramBO);
 
 
-        ValidBean.of(data)
+        Bean.of(data)
                 .notEmpty(Data1::getBusinessId, "商户id不能为空") //校验data.getActivityId的返回值是否非空，如果非空，则不能通过校验，会抛异常，异常的msg为第二个参数指定值
                 .notEmpty(Data1::getBusinessList, "商户列表不能为空")  //支持String、Collection、Map的空校验
                 .map(Data1::getParams1)//转换为基于getParams1方法返回的对象的校验对象，类似于Optional的map方法(如果熟悉Optional，相信会很容易理解的)。
@@ -76,7 +76,7 @@
         data.setParams2(param2);
 
 
-        ValidBean.of(data)
+        Bean.of(data)
                 .notEmpty(Data2::getBusinessId, "商户id不能为空") //校验data.getActivityId的返回值是否非空，如果非空，则不能通过校验，会抛异常，异常的msg为第二个参数指定值
                 .notEmpty(Data2::getBusinessList, "商户列表不能为空")  //支持String、Collection、Map的空校验
                 .map(Data2::getParams1)//转换为基于getParams1方法返回的对象的校验对象，类似于Optional的map方法(如果熟悉Optional，相信会很容易理解的)。
@@ -84,7 +84,7 @@
                 .notEmpty(GenericData1::getEndDate, "第一个参数：开始时间不能为空")//校验是data对象的getParams1返回的对象的getEndDate方法的返回值
                 .notEmpty(GenericData1::getStartDate, "第一个参数：结束时间不能为空")
                 //此时对getParams1返回值的校验已完成，然后又想回到对data校验怎么办？使用parent方法即可
-                //调用parent方法回到上层的校验时，由于ValidSubBean和ValidBean之间泛型转换会导致类型信息丢失，所以需要重新传入类型泛型信息
+                //调用parent方法回到上层的校验时，由于SubBean和Bean之间泛型转换会导致类型信息丢失，所以需要重新传入类型泛型信息
                 //其中Data<GenericData1, GenericData2>就是data的类型
                 .<Data2<GenericData1, GenericData2>>parent()
                 //此时又可以对data进行校验了，一样
@@ -104,7 +104,7 @@
         Data data = new Data();
         data.setPhone("12345678911");//假设是十一位数的手机号码
 
-        ValidBean.of(data)
+        Bean.of(data)
                 //第一个参数就是调用data.getPhone方法获取返回值
                 //第二个参数就是把返回值作为参数传给lambda。lambda表达式返回true则表示通过校验，不会报错。。
                 // 如果lambda返回false，则报错，，错误信息为第三个参数
@@ -139,7 +139,7 @@
         data.setParams2(param2);
 
 
-        ValidBean.of(data)
+        Bean.of(data)
                 .lazy()  //----------就在这，只要加了lazy方法就表示启用懒惰执行了。。下面的一堆校验逻辑都不会立即执行，而是等到调用complete方法时才会执行
                 .notEmpty(Data2::getBusinessId, "商户id不能为空") //校验data.getActivityId的返回值是否非空，如果非空，则不能通过校验，会抛异常，异常的msg为第二个参数指定值
                 .notEmpty(Data2::getBusinessList, "商户列表不能为空")  //支持String、Collection、Map的空校验
@@ -148,7 +148,7 @@
                 .notEmpty(GenericData1::getEndDate, "第一个参数：开始时间不能为空")//校验是data对象的getParams1返回的对象的getEndDate方法的返回值
                 .notEmpty(GenericData1::getStartDate, "第一个参数：结束时间不能为空")
                 //此时对getParams1返回值的校验已完成，然后又想回到对data校验怎么办？使用parent方法即可
-                //调用parent方法回到上层的校验时，由于ValidSubBean和ValidBean之间泛型转换会导致类型信息丢失，所以需要重新传入类型泛型信息
+                //调用parent方法回到上层的校验时，由于SubBean和Bean之间泛型转换会导致类型信息丢失，所以需要重新传入类型泛型信息
                 //其中Data<GenericData1, GenericData2>就是data的类型
                 .<Data2<GenericData1, GenericData2>>parent()
                 //此时又可以对data进行校验了，一样
